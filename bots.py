@@ -22,8 +22,9 @@ proxies = 'HTTP', proxies
 print(proxies)
 TheVar = 1
 
-
 out_time = 0.5
+
+
 class MyThread(threading.Thread):
     def run(self):
         global theVar
@@ -92,22 +93,23 @@ def send_message_users(message):
 
 
 @bot.message_handler(commands=['start'])
-def start(message, chat_id):
+def start(message):
     keyboard = types.ReplyKeyboardMarkup(row_width=2, resize_keyboard=True)
 
     faq = types.KeyboardButton(text='Соглашение')
     premium = types.KeyboardButton(text='Премиум')
+    boom = types.KeyboardButton(text='Бомбер')
+    stop = types.KeyboardButton(text='Отключить')
     buttons_to_add = [faq, premium]
-    running_spams_per_chat_id.append(chat_id)
-    with open("premium.txt") as file:
-        arrayBL = [row.strip() for row in file]
-        iduser = f'{message.chat.id}'
-    if iduser in arrayBL:
-        boom = types.KeyboardButton(text='Бомбер')
-        stop = types.KeyboardButton(text='Отключить')
-        keyboard.add(*buttons_to_add)
-    else:
-        pass
+    # with open("premium.txt") as file:
+    #     arrayBL = [row.strip() for row in file]
+    #     iduser = f'{message.chat.id}'
+    # if iduser in arrayBL:
+    #     boom = types.KeyboardButton(text='Бомбер')
+    #     stop = types.KeyboardButton(text='Отключить')
+    #     keyboard.add(*buttons_to_add)
+    # else:
+    #     pass
 
     if int(message.chat.id) == ADMIN_CHAT_ID:
         buttons_to_add.append(types.KeyboardButton(text='Рассылка'))
@@ -116,9 +118,7 @@ def start(message, chat_id):
         keyboard.add(*buttons_to_add)
 
     bot.send_message(message.chat.id,
-                     '❤ Премиум доступ  - 50Р\n - 120 Сервисов \n Бесконечный флуд \n Доступ НАВСЕГДА \n Запускайте флуд сразу на 10 НОМЕРОВ\n 🙎За покупкой - @viannedi \n Или \n\n Перейдите по ссылке для оплаты \n❗️Обязательно введите коментарий: <code>{message.chat.id}</code>'.format(
-                         message.from_user, bot.get_me()),
-                     parse_mode='html', reply_markup=keyboard)
+                     f'❤ Премиум доступ  - 50Р\n - 120 Сервисов \n Бесконечный флуд \n Доступ НАВСЕГДА \n Запускайте флуд сразу на 10 НОМЕРОВ\n 🙎За покупкой - @viannedi \n Или \n\n Перейдите по ссылке для оплаты \n❗️Обязательно введите коментарий: <code>{message.chat.id}</code>', parse_mode='html', reply_markup=keyboard)
 
     save_chat_id(message.chat.id)
 
