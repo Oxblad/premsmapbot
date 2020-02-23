@@ -42,6 +42,7 @@ for x in range(200):
     MyThread().start()
 
 TOKEN = os.environ.get('BOT_TOKEN')
+TOKEN = '1040360800:AAHrux5TfRnok9foJDP2gM7QGRvz7esmkHE'
 let = 1
 THREADS_LIMIT = 100
 
