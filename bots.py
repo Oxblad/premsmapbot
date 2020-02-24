@@ -951,6 +951,7 @@ def send_for_number(phone):
 
 
 def start_spam(chat_id, phone_number, force):
+    global msg
     running_spams_per_chat_id.append(chat_id)
 
     with open("premium.txt") as file:
@@ -962,18 +963,17 @@ def start_spam(chat_id, phone_number, force):
         msg = f'‍Номер телефона: {phone_number}\nТаймер: ~Бесконечно\nСпам успешно начался!'
 
     bot.send_message(chat_id, msg)
-    end = datetime.now() + timedelta(minutes=50)
+    end = datetime.now() + timedelta(minutes=5)
     while (datetime.now() < end) or (force and chat_id == ADMIN_CHAT_ID):
         if chat_id not in running_spams_per_chat_id:
             break
         send_for_number(phone_number)
     bot.send_message(chat_id, f'Спам на номер {phone_number} завершён')
-    THREADS_AMOUNT[0] -= 1  # стояло 1
+    THREADS_AMOUNT[0] -= 10  # стояло 1
     try:
         running_spams_per_chat_id.remove(chat_id)
     except Exception:
         pass
-
 
 def spam_handler(phone, chat_id, force):
     if int(chat_id) in running_spams_per_chat_id:
