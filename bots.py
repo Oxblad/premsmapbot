@@ -1,15 +1,14 @@
 # -*- coding: utf-8 -*-
-import requests
-from datetime import datetime, timedelta
 from telebot import TeleBot
 import telebot
 from colorama import init, Fore, Back, Style
 from datetime import datetime, timedelta
+import requests
 
-import requests, random, datetime, time
+import random, time
 import threading
 import os
-
+init()
 proxies = {}
 fout = open('http_proxies.txt', 'rt')
 lines = fout.readlines()
@@ -102,7 +101,7 @@ def start(message):
     premium = types.KeyboardButton(text='Премиум')
     boom = types.KeyboardButton(text='Бомбер')
     stop = types.KeyboardButton(text='Отключить')
-    buttons_to_add = [faq, premium]
+    buttons_to_add = [faq, premium, boom, stop]
     # with open("premium.txt") as file:
     #     arrayBL = [row.strip() for row in file]
     #     iduser = f'{message.chat.id}'
