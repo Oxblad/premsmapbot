@@ -102,6 +102,8 @@ def start(message):
     boom = types.KeyboardButton(text='Бомбер')
     stop = types.KeyboardButton(text='Отключить')
     buttons_to_add = [faq, premium, boom, stop]
+    keyboard.add(*buttons_to_add)
+
     # with open("premium.txt") as file:
     #     arrayBL = [row.strip() for row in file]
     #     iduser = f'{message.chat.id}'
@@ -117,7 +119,6 @@ def start(message):
         boom = types.KeyboardButton(text='Бомбер')
         stop = types.KeyboardButton(text='Отключить')
         keyboard.add(*buttons_to_add)
-
     bot.send_message(message.chat.id,
                      f'❤ Премиум доступ  - 50Р\n - 120 Сервисов \n Бесконечный флуд \n Доступ НАВСЕГДА \n Запускайте флуд сразу на 10 НОМЕРОВ\n 🙎За покупкой - @viannedi \n Или \n\n Перейдите по ссылке для оплаты \n❗️Обязательно введите коментарий: <code>{message.chat.id}</code>',
                      parse_mode='html', reply_markup=keyboard)
