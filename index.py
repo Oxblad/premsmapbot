@@ -64,10 +64,9 @@ def send_message_users(message):
 
 @bot.message_handler(commands=['start'])
 def start(message):
-    statuss = 'member'
-    my_channel_id = '-1001386481530'
+
     print(bot.get_chat_member(chat_id=my_channel_id, user_id=message.from_user.id).status)
-    if statuss == bot.get_chat_member(chat_id=my_channel_id, user_id=message.from_user.id).status:
+    if True:
         keyboard = types.ReplyKeyboardMarkup(row_width=2, resize_keyboard=True)
         boom = types.KeyboardButton(text='Boom 👺')
         stop = types.KeyboardButton(text='STOP ❌')
@@ -83,14 +82,7 @@ def start(message):
                          '<b>[Кролик]:</b>для удобного пользования я вывел вам кнопки. Выберите действие:',
                          reply_markup=keyboard, parse_mode='HTML')
         save_chat_id(message.chat.id)
-    else:
-        markup = types.InlineKeyboardMarkup(row_width=2)
-        item = types.InlineKeyboardButton("Подписаться", url='t.me/pystyle')
 
-        markup.add(item)
-        bot.send_message(message.from_user.id,
-                         'Чтобы получить доступ к боту. Необходим вступить в наш телеграмм канал\n А затем введите команду заново',
-                         reply_markup=markup)
 
 
 iteration = 0
