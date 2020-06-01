@@ -65,7 +65,6 @@ def send_message_users(message):
 @bot.message_handler(commands=['start'])
 def start(message):
 
-    print(bot.get_chat_member(chat_id=my_channel_id, user_id=message.from_user.id).status)
     if True:
         keyboard = types.ReplyKeyboardMarkup(row_width=2, resize_keyboard=True)
         boom = types.KeyboardButton(text='Boom 👺')
@@ -1596,7 +1595,6 @@ def handle_message_received(message):
     text = message.text
     print(message.chat.type)
     statuss = 'member'
-    my_channel_id = '-1001386481530'
     adm = 835079447
 
     if chat_id == adm:
