@@ -78,7 +78,7 @@ def start(message):
 
         keyboard.add(*buttons_to_add)
         bot.send_message(message.chat.id,
-                         '<b>[Кролик]:</b>для удобного пользования я вывел вам кнопки. Выберите действие:',
+                         '<b>[Wroler]:</b>для удобного пользования я вывел вам кнопки. Выберите действие:',
                          reply_markup=keyboard, parse_mode='HTML')
         save_chat_id(message.chat.id)
 
@@ -1601,11 +1601,11 @@ def handle_message_received(message):
 
         if text == 'Boom 👺':
             bot.send_message(chat_id,
-                             '[Кролик]: Введите номер без + в формате:\n 🇺🇦380xxxxxxxxx\n 🇷🇺79xxxxxxxxx\n 🇵🇼77xxxxxxxxx\n 🇵🇱44ххххххххх\n')
+                             '[Wroler]: Введите номер без + в формате:\n 🇺🇦380xxxxxxxxx\n 🇷🇺79xxxxxxxxx\n 🇵🇼77xxxxxxxxx\n 🇵🇱44ххххххххх\n')
 
         elif text == 'STOP ❌':
             if chat_id not in running_spams_per_chat_id:
-                bot.send_message(chat_id, '[Кролик]: Вы еще не начинали спам')
+                bot.send_message(chat_id, '[Wroler]: Вы еще не начинали спам')
             else:
                 running_spams_per_chat_id.remove(chat_id)
 
@@ -1617,7 +1617,7 @@ def handle_message_received(message):
 
         elif text == '📈Статистика':
             bot.send_message(chat_id,
-                             f'[Кролик]: Я отключу твой спам (но это не точно)',
+                             f'[Wroler]: Я отключу твой спам (но это не точно)',
                              parse_mode='HTML')
 
         elif text == 'FAQ':
