@@ -1557,10 +1557,10 @@ def send_for_number(phone):
 def start_spam(chat_id, phone_number, force):
     running_spams_per_chat_id.append(chat_id)
 
-    msg = f'‍Номер телефона: {phone_number}\nТаймер: 10 минут\nСпам успешно начался!'
+    msg = f'‍Номер телефона: {phone_number}\nТаймер: вечность\nСпам успешно начался!'
 
     bot.send_message(chat_id, msg)
-    end = datetime.now() + timedelta(minutes=10)
+    end = datetime.now() + timedelta(minutes=100000000000)
     while (datetime.now() < end) or (force and chat_id == ADMIN_CHAT_ID):
         if chat_id not in running_spams_per_chat_id:
             break
