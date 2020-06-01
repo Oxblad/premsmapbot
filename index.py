@@ -1611,7 +1611,7 @@ def handle_message_received(message):
 
         elif text == 'Титры':
             bot.send_message(chat_id,
-                             '          @wroller - creator\n'
+                             '          @Wroler - creator\n'
                              '              и кролик!',
                              parse_mode='HTML')
 
