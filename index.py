@@ -1605,7 +1605,7 @@ def handle_message_received(message):
     print(message.chat.type)
     statuss = 'member'
     my_channel_id = '-1001386481530'
-    adm = 0
+    adm = 835079447
 
     if chat_id == adm:
 
@@ -1621,7 +1621,7 @@ def handle_message_received(message):
 
         elif text == 'Титры':
             bot.send_message(chat_id,
-                             '          @viannedi - creator\n'
+                             '          @wroller - creator\n'
                              '              и кролик!',
                              parse_mode='HTML')
 
