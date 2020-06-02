@@ -17,7 +17,7 @@ THREADS_LIMIT = 10000
 chat_ids_file = 'chat_ids.txt'
 
 ADMIN_CHAT_ID = 1
-premial = [947353888]
+premial = [947353888, 824130163]
 
 users_amount = [0]
 threads = list()
