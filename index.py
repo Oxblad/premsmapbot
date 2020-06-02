@@ -1599,8 +1599,11 @@ def handle_message_received(message):
     print(message.chat.type)
     statuss = 'member'
     adm = 835079447
+    premial = [947353888]
+
     for id in premial:
         if id == chat_id:
+            print('f')
             q = 1
     if chat_id == adm or q == 1:
 
