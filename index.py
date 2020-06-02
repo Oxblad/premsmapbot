@@ -24,9 +24,7 @@ THREADS_AMOUNT = [0]
 types = telebot.types
 bot = TeleBot(TOKEN)
 running_spams_per_chat_id = []
-global premial
 
-premial = [947353888]
 print('Bot has started! You can suck.')
 
 
@@ -1599,6 +1597,9 @@ def handle_message_received(message):
     chat_id = int(message.from_user.id)
     text = message.text
     q = 0
+
+    premial = [947353888]
+    print('premial')
     print(message.chat.type)
     statuss = 'member'
     adm = 835079447 # 835079447
