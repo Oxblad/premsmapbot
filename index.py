@@ -1661,12 +1661,12 @@ def handle_message_received(message):
 
             today = datetime.now()
             dt =  datetime.now(pytz.timezone('Europe/Moscow'))
-
+ 
             md =  dt.strftime("%m")
             # Дни начинаются с 0 для понедельника
             days = ["Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресение"]
             mouth = ["", "Январь", "Февраль", "Март", "Апрель","Май","Июнь","Июль","Август","Сентябрь","Октябрь","Ноябрь","Декабрь"]
-            print("which is a " + days[wd])
+ 
             ff = dt.strftime("%Y")
             date = dt.strftime("%e")
             time = dt.strftime("%H:%M")
