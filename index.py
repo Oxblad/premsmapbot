@@ -1633,7 +1633,7 @@ def handle_message_received(message):
             date = dt.strftime("%A, %d. %B %Y")
             time = dt.strftime("%I:%M%p")
             bot.send_message(chat_id,
-                             f'Московское время: {time}\n Дата: {data}\nПользователей в боте: {users_amount}а\n Номеров в процесе: {len(running_spams_per_chat_id)}',
+                             f'Московское время: {time}\n Дата: {date}\nПользователей в боте: {users_amount}а\n Номеров в процесе: {len(running_spams_per_chat_id)}',
                              parse_mode='HTML')
 
         elif text == 'FAQ':
