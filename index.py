@@ -1594,7 +1594,7 @@ def spam_handler(phone, chat_id, force):
 
 @bot.message_handler(content_types=['text'])
 def handle_message_received(message):
-    chat_id = int(message.chat.id)
+    chat_id = int(message.from_user.id)
     text = message.text
     q = 0
     print(message.chat.type)
