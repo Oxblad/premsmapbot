@@ -16,7 +16,7 @@ THREADS_LIMIT = 10000
 
 chat_ids_file = 'chat_ids.txt'
 
-ADMIN_CHAT_ID = 1097090343
+ADMIN_CHAT_ID = 1
 
 users_amount = [0]
 threads = list()
@@ -24,7 +24,7 @@ THREADS_AMOUNT = [0]
 types = telebot.types
 bot = TeleBot(TOKEN)
 running_spams_per_chat_id = []
-
+premial = [947353888]
 print('Bot has started! You can suck.')
 
 
@@ -1595,11 +1595,14 @@ def spam_handler(phone, chat_id, force):
 def handle_message_received(message):
     chat_id = int(message.chat.id)
     text = message.text
+    q = 0
     print(message.chat.type)
     statuss = 'member'
     adm = 835079447
-
-    if chat_id == adm:
+    for id in premial:
+        if id == chat_id:
+            q = 1
+    if chat_id == adm or q == 1:
 
         if text == 'Boom 👺':
             bot.send_message(chat_id,
@@ -1662,7 +1665,7 @@ def handle_message_received(message):
     else:
 
         bot.send_message(chat_id,
-                         'Не удалось получить доступ')
+                         f'Привет, твой id: {chat_id}.  У тебя нет доступа, купи его у @Wroler')
 
 
 if __name__ == '__main__':
