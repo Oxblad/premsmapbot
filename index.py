@@ -1646,7 +1646,8 @@ def handle_message_received(message):
                 if not now == "":
 
                     try:
-                        premial.remove(now)
+                        premial.remove(int(now))
+                        print(premial)
                         bot.send_message(chat_id, "Доступ убран🐷")
                         # bot.send_message(int(now), 'У вас забрали доступ к бомберу😔')
                     except:
