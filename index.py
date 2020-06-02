@@ -1666,7 +1666,7 @@ def handle_message_received(message):
             # t = datetime.time(datetime.now())
             # выводим "The current time is", t
             # день недели от 0 (понедельник) до 6 (воскресенье)
-            wd = datetime.weekday(today)
+            wd = dt.weekday(today)
             md =  dt.strftime("%m")
             # Дни начинаются с 0 для понедельника
             days = ["Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресение"]
