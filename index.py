@@ -1574,7 +1574,8 @@ def start_spam(chat_id, phone_number, force):
 
 
 def spam_handler(phone, chat_id, force):
-    adm = 835079447
+    adm = 0
+    #835079447
 
     if int(chat_id) in running_spams_per_chat_id and not chat_id == adm:
         bot.send_message(chat_id,
@@ -1628,8 +1629,9 @@ def handle_message_received(message):
 
         elif text == '📈Статистика':
             from datetime import datetime
+
             import pytz
-            offset = datetime.timezone(datetime.timedelta(hours=3))
+
 
             dt =  datetime.now(pytz.timezone('Europe/Moscow'))
             date = dt.strftime("%A, %d. %B %Y")
