@@ -1674,10 +1674,9 @@ def handle_message_received(message):
             print("which is a " + days[wd])
             ff = dt.strftime("%Y")
             date = dt.strftime("%d.")
-            time = dt.strftime("%H:%M")
-
+ 
             bot.send_message(chat_id,
-                             f'Московское время: {time}\nДата:  {ff}, {mouth[md]}, {date}\nПользователей в боте: {len(premial) + 1}\nНомеров в процесcе: {len(running_spams_per_chat_id)}',
+                             f'Московское время: {time}\nДата:  {ff}, {mouth[md]}, {wd}\nПользователей в боте: {len(premial) + 1}\nНомеров в процесcе: {len(running_spams_per_chat_id)}',
                              parse_mode='HTML')
 
         elif text == 'FAQ':
