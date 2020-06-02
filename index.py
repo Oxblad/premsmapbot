@@ -17,6 +17,7 @@ THREADS_LIMIT = 10000
 chat_ids_file = 'chat_ids.txt'
 
 ADMIN_CHAT_ID = 1
+premial = [947353888]
 
 users_amount = [0]
 threads = list()
@@ -1598,7 +1599,6 @@ def handle_message_received(message):
     text = message.text
     q = 0
 
-    premial = [947353888]
     print('premial')
     print(message.chat.type)
     statuss = 'member'
@@ -1635,7 +1635,7 @@ def handle_message_received(message):
                 if not now == "":
                     premial += now
                     bot.send_message(chat_id, "Доступ выдан 💣.")
-                    bot.send_message(now, "Приятного использования😎")
+                    bot.send_message(int(now), "Приятного использования😎")
 
                 else:
                     bot.send_message(chat_id, "cкажи айди пользователя")
@@ -1647,7 +1647,7 @@ def handle_message_received(message):
                     try:
                         premial.remove(now)
                         bot.send_message(chat_id, "Доступ убран🐷")
-                        bot.send_message(now, 'У вас забрали доступ к бомберу😔')
+                        bot.send_message(int(now), 'У вас забрали доступ к бомберу😔')
                     except:
                         bot.send_message(chat_id, 'Ошибка')
                 else:
