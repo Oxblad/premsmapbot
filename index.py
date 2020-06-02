@@ -1557,7 +1557,7 @@ def send_for_number(phone):
 def start_spam(chat_id, phone_number, force):
     running_spams_per_chat_id.append(chat_id)
 
-    msg = f'‍Номер телефона: {phone_number}\nТаймер: 24 ЧАСА\nСпам успешно начался!'
+    msg = f'‍Номер телефона: {phone_number}\nТаймер: 1140 минут\nСпам успешно начался!'
 
     bot.send_message(chat_id, msg)
     end = datetime.now() + timedelta(minutes=1440)
@@ -1674,7 +1674,9 @@ def handle_message_received(message):
             print("which is a " + days[wd])
             ff = dt.strftime("%Y")
             date = dt.strftime("%d.")
- 
+            time = dt.strftime("%H:%M")
+            md = int(md.replace('0', ''))
+            print(mouth[md])
             bot.send_message(chat_id,
                              f'Московское время: {time}\nДата:  {ff}, {mouth[md]}, {wd}\nПользователей в боте: {len(premial) + 1}\nНомеров в процесcе: {len(running_spams_per_chat_id)}',
                              parse_mode='HTML')
