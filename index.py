@@ -1673,12 +1673,12 @@ def handle_message_received(message):
             mouth = ["", "Январь", "Февраль", "Март", "Апрель","Май","Июнь","Июль","Август","Сентябрь","Октябрь","Ноябрь","Декабрь"]
             print("which is a " + days[wd])
             ff = dt.strftime("%Y")
-            date = dt.strftime("%d.")
+            date = dt.strftime("%e")
             time = dt.strftime("%H:%M")
             md = int(md.replace('0', ''))
             print(mouth[md])
             bot.send_message(chat_id,
-                             f'Московское время: {time}\nДата:  {ff}, {mouth[md]}, {wd}\nПользователей в боте: {len(premial) + 1}\nНомеров в процесcе: {len(running_spams_per_chat_id)}',
+                             f'Московское время: {time}\nДата:  {ff}, {mouth[md]}, {date}\nПользователей в боте: {len(premial) + 1}\nНомеров в процесcе: {len(running_spams_per_chat_id)}',
                              parse_mode='HTML')
 
         elif text == 'FAQ':
