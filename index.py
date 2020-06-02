@@ -1628,12 +1628,14 @@ def handle_message_received(message):
 
         elif text == '📈Статистика':
             from datetime import datetime
+            import pytz
+            offset = datetime.timezone(datetime.timedelta(hours=3))
 
-            dt = datetime.today()
+            dt =  datetime.now(pytz.timezone('Europe/Moscow'))
             date = dt.strftime("%A, %d. %B %Y")
             time = dt.strftime("%I:%M%p")
             bot.send_message(chat_id,
-                             f'Московское время: {time}\n Дата: {date}\nПользователей в боте: {users_amount}а\n Номеров в процесе: {len(running_spams_per_chat_id)}',
+                             f'Московское время: {time}\nДата: {date}\nПользователей в боте: {users_amount}\nНомеров в процесе: {len(running_spams_per_chat_id)}',
                              parse_mode='HTML')
 
         elif text == 'FAQ':
