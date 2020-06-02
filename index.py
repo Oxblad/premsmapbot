@@ -10,7 +10,7 @@ import random
 import threading
 import os
 TOKEN = os.environ.get('BOT_TOKEN')
-premial = [947353888]
+
 
 THREADS_LIMIT = 10000
 
@@ -24,6 +24,7 @@ THREADS_AMOUNT = [0]
 types = telebot.types
 bot = TeleBot(TOKEN)
 running_spams_per_chat_id = []
+
 premial = [947353888]
 print('Bot has started! You can suck.')
 
@@ -1632,10 +1633,8 @@ def handle_message_received(message):
                 if not now == "":
                     premial += now
                     bot.send_message(chat_id, "Доступ выдан 💣.")
-                    try:
-                        bot.send_message(now, "Приятного использования😎")
-                    except:
-                        bot.send_message(now, "Ошибка")
+                    bot.send_message(now, "Приятного использования😎")
+
                 else:
                     bot.send_message(chat_id, "cкажи айди пользователя")
         elif re.search(r'/del', text):
