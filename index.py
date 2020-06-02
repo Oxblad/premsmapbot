@@ -1627,14 +1627,33 @@ def handle_message_received(message):
                              '          @Wroler - creator\n',
                              parse_mode='HTML')
         elif re.search(r'/set', text):
-            print('set/')
-            now = text.replace("/set", "")
-            premial += now
-            bot.send_message(chat_id, "Доступ выдан 💣.")
-        elif re.search(r'\/set\b', text):
-            now = text.replace("/del", "")
-            premial.remove(now)
+            if chat_id == adm:
+                print('set/')
+                now = text.replace("/set", "")
+                if not now == "":
+                    premial += now
+                    bot.send_message(chat_id, "Доступ выдан 💣.")
+                    try:
+                        bot.send_message(now, "Приятного использования😎")
+                    except:
+                        bot.send_message(now, "Ошибка")
+                else:
+                    bot.send_message(chat_id, "cкажи айди пользователя")
+        elif re.search(r'/del', text):
+            if chat_id == adm:
+                now = text.replace("/del", "")
+                if not now == "":
 
+                    try:
+                        premial.remove(now)
+                        bot.send_message(chat_id, "Доступ убран🐷")
+                        bot.send_message(now, 'У вас забрали доступ к бомберу😔')
+                    except:
+                        bot.send_message(chat_id, 'Ошибка')
+                else:
+                    bot.send_message(chat_id, "cкажи айди пользователя")
+        elif re.search(r'/premialdfffff', text):
+            bot.send_message(chat_id, f"{premial}")
         elif text == '📈Статистика':
             from datetime import datetime
 
@@ -1659,7 +1678,7 @@ def handle_message_received(message):
             md = int(md.replace('0', ''))
             print(mouth[md])
             bot.send_message(chat_id,
-                             f'Московское время: {time}\nДата: {days[wd]}, {date} {mouth[md]} {ff}\nПользователей в боте: {len(premial) + 1}\nНомеров в процесcе: {len(running_spams_per_chat_id)}',
+                             f'Московское время: {time}\nДата:  {ff}, {mouth[md]}, {date}\nПользователей в боте: {len(premial) + 1}\nНомеров в процесcе: {len(running_spams_per_chat_id)}',
                              parse_mode='HTML')
 
         elif text == 'FAQ':
