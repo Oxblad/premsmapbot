@@ -1638,7 +1638,7 @@ def handle_message_received(message):
             # t = datetime.time(datetime.now())
             # выводим "The current time is", t
             # день недели от 0 (понедельник) до 6 (воскресенье)
-            wd = date.weekday(today)
+            wd = datetime.weekday(today)
             # Дни начинаются с 0 для понедельника
             days = ["Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресение"]
             print("Today is day number %d" % wd)
