@@ -10,7 +10,7 @@ import random
 import threading
 import os
 TOKEN = os.environ.get('BOT_TOKEN')
-
+premial = [947353888]
 
 THREADS_LIMIT = 10000
 
@@ -1600,7 +1600,6 @@ def handle_message_received(message):
     print(message.chat.type)
     statuss = 'member'
     adm = 835079447 # 835079447
-    premial = [947353888]
     import re
     for id in premial:
         print(id, chat_id)
