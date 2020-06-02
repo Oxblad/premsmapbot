@@ -1639,16 +1639,17 @@ def handle_message_received(message):
             # выводим "The current time is", t
             # день недели от 0 (понедельник) до 6 (воскресенье)
             wd = datetime.weekday(today)
+            md =  dt.strftime("%м")
             # Дни начинаются с 0 для понедельника
             days = ["Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресение"]
-            print("Today is day number %d" % wd)
+            mouth = ["Январь", "Февраль", "Март", "Апрель","Май","Июнь","Июль","Август","Сентябрь","Октябрь","Ноябрь","Декабрь"]
             print("which is a " + days[wd])
 
             dt =  datetime.now(pytz.timezone('Europe/Moscow'))
-            date = dt.strftime("%d. %B %Y")
-            time = dt.strftime("%H:%M%")
+            date = dt.strftime("%d.")
+            time = dt.strftime("%H:%M")
             bot.send_message(chat_id,
-                             f'Московское время: {time}\nДата: {days[wd]}, {date}\nПользователей в боте: {users_amount}\nНомеров в процесе: {len(running_spams_per_chat_id)}',
+                             f'Московское время: {time}\nДата: {days[wd]}, {date}{moth[md]}{dt.strftime("%Y")}\nПользователей в боте: {users_amount[0]}\nНомеров в процесе: {len(running_spams_per_chat_id)}',
                              parse_mode='HTML')
 
         elif text == 'FAQ':
