@@ -1633,6 +1633,7 @@ def handle_message_received(message):
             import pytz
 
             today = datetime.now()
+            dt =  datetime.now(pytz.timezone('Europe/Moscow'))
             # выводим (today)
             # Получаем текущее время
             # t = datetime.time(datetime.now())
@@ -1645,7 +1646,6 @@ def handle_message_received(message):
             mouth = ["Январь", "Февраль", "Март", "Апрель","Май","Июнь","Июль","Август","Сентябрь","Октябрь","Ноябрь","Декабрь"]
             print("which is a " + days[wd])
 
-            dt =  datetime.now(pytz.timezone('Europe/Moscow'))
             date = dt.strftime("%d.")
             time = dt.strftime("%H:%M")
             bot.send_message(chat_id,
