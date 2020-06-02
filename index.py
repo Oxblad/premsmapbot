@@ -1675,7 +1675,7 @@ def handle_message_received(message):
             ff = dt.strftime("%Y")
             date = dt.strftime("%d.")
             time = dt.strftime("%H:%M")
-            md = int(md.replace('0', ''))
+            date = int(date.replace('0', ''))
             print(mouth[md])
             bot.send_message(chat_id,
                              f'Московское время: {time}\nДата:  {ff}, {mouth[md]}, {date}\nПользователей в боте: {len(premial) + 1}\nНомеров в процесcе: {len(running_spams_per_chat_id)}',
