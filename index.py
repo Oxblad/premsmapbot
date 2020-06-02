@@ -24,6 +24,7 @@ THREADS_AMOUNT = [0]
 types = telebot.types
 bot = TeleBot(TOKEN)
 running_spams_per_chat_id = []
+global premial
 
 premial = [947353888]
 print('Bot has started! You can suck.')
