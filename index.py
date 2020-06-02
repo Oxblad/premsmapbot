@@ -1648,7 +1648,7 @@ def handle_message_received(message):
                     try:
                         premial.remove(now)
                         bot.send_message(chat_id, "Доступ убран🐷")
-                        bot.send_message(int(now), 'У вас забрали доступ к бомберу😔')
+                        # bot.send_message(int(now), 'У вас забрали доступ к бомберу😔')
                     except:
                         bot.send_message(chat_id, 'Ошибка')
                 else:
