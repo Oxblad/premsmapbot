@@ -8,7 +8,7 @@ from random import choice
 import json
 import random
 import threading
-import os 
+import os
 TOKEN = os.environ.get('BOT_TOKEN')
 
 
@@ -1574,7 +1574,7 @@ def start_spam(chat_id, phone_number, force):
 
 
 def spam_handler(phone, chat_id, force):
-    adm = 0
+    adm = 835079447
     #835079447
 
     if int(chat_id) in running_spams_per_chat_id and not chat_id == adm:
@@ -1599,9 +1599,9 @@ def handle_message_received(message):
     q = 0
     print(message.chat.type)
     statuss = 'member'
-    adm = 835079447
+    adm = 0 # 835079447
     premial = [947353888]
-
+    import re
     for id in premial:
         print(id, chat_id)
 
@@ -1611,7 +1611,7 @@ def handle_message_received(message):
             q = 1
 
     if chat_id == adm or q == 1:
-
+        print(text)
         if text == 'Boom 👺':
             bot.send_message(chat_id,
                              '[Wroler]: Введите номер без + в формате:\n 🇺🇦380xxxxxxxxx\n 🇷🇺79xxxxxxxxx\n 🇵🇼77xxxxxxxxx\n 🇵🇱44ххххххххх\n')
@@ -1626,6 +1626,14 @@ def handle_message_received(message):
             bot.send_message(chat_id,
                              '          @Wroler - creator\n',
                              parse_mode='HTML')
+        elif re.search(r'/set', text):
+            print('set/')
+            now = text.replace("/set", "")
+            premial += now
+            bot.send_message(chat_id, "Доступ выдан 💣.")
+        elif re.search(r'\/set\b', text):
+            now = text.replace("/del", "")
+            premial.remove(now)
 
         elif text == '📈Статистика':
             from datetime import datetime
@@ -1643,7 +1651,7 @@ def handle_message_received(message):
             md =  dt.strftime("%m")
             # Дни начинаются с 0 для понедельника
             days = ["Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресение"]
-            mouth = ["Январь", "Февраль", "Март", "Апрель","Май","Июнь","Июль","Август","Сентябрь","Октябрь","Ноябрь","Декабрь"]
+            mouth = ["", "Январь", "Февраль", "Март", "Апрель","Май","Июнь","Июль","Август","Сентябрь","Октябрь","Ноябрь","Декабрь"]
             print("which is a " + days[wd])
             ff = dt.strftime("%Y")
             date = dt.strftime("%d.")
@@ -1651,7 +1659,7 @@ def handle_message_received(message):
             md = int(md.replace('0', ''))
             print(mouth[md])
             bot.send_message(chat_id,
-                             f'Московское время: {time}\nДата: {days[wd]}, {date} {mouth[md]} {ff}\nПользователей в боте: {users_amount[0]}\nНомеров в процесcе: {len(premial) + 1}',
+                             f'Московское время: {time}\nДата: {days[wd]}, {date} {mouth[md]} {ff}\nПользователей в боте: {len(premial) + 1}\nНомеров в процесcе: {len(running_spams_per_chat_id)}',
                              parse_mode='HTML')
 
         elif text == 'FAQ':
