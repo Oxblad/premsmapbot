@@ -1574,7 +1574,9 @@ def start_spam(chat_id, phone_number, force):
 
 
 def spam_handler(phone, chat_id, force):
-    if int(chat_id) in running_spams_per_chat_id:
+    adm = 835079447
+
+    if int(chat_id) in running_spams_per_chat_id and not chat_id == adm:
         bot.send_message(chat_id,
                          'Вы уже начали рассылку спама. Дождитесь окончания или нажмите Остановить спам и попробуйте снова')
         return
@@ -1611,13 +1613,17 @@ def handle_message_received(message):
 
         elif text == 'Титры':
             bot.send_message(chat_id,
-                             '          @Wroler - creator\n'
-                             '              и кролик!',
+                             '          @Wroler - creator\n',
                              parse_mode='HTML')
 
         elif text == '📈Статистика':
+            from datetime import datetime
+
+            dt = datetime.today()
+            date = dt.strftime("%A, %d. %B %Y")
+            time = dt.strftime("%I:%M%p")
             bot.send_message(chat_id,
-                             f'[Wroler]: Я отключу твой спам (но это не точно)',
+                             f'Московское время: {time}\n Дата: {data}\nПользователей в боте: {users_amount}а\n Номеров в процесе: {len(running_spams_per_chat_id)}',
                              parse_mode='HTML')
 
         elif text == 'FAQ':
