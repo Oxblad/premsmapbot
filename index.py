@@ -1599,7 +1599,7 @@ def handle_message_received(message):
     q = 0
     print(message.chat.type)
     statuss = 'member'
-    adm = 0 # 835079447
+    adm = 835079447 # 835079447
     premial = [947353888]
     import re
     for id in premial:
@@ -1661,12 +1661,12 @@ def handle_message_received(message):
 
             today = datetime.now()
             dt =  datetime.now(pytz.timezone('Europe/Moscow'))
- 
+
             md =  dt.strftime("%m")
             # Дни начинаются с 0 для понедельника
             days = ["Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресение"]
             mouth = ["", "Январь", "Февраль", "Март", "Апрель","Май","Июнь","Июль","Август","Сентябрь","Октябрь","Ноябрь","Декабрь"]
- 
+
             ff = dt.strftime("%Y")
             date = dt.strftime("%e")
             time = dt.strftime("%H:%M")
