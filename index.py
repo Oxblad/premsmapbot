@@ -1602,9 +1602,13 @@ def handle_message_received(message):
     premial = [947353888]
 
     for id in premial:
+        print(id, chat_id)
+
         if id == chat_id:
+            print(id, chat_id)
             print('f')
             q = 1
+
     if chat_id == adm or q == 1:
 
         if text == 'Boom 👺':
