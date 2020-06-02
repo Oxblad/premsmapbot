@@ -17,7 +17,6 @@ THREADS_LIMIT = 10000
 chat_ids_file = 'chat_ids.txt'
 
 ADMIN_CHAT_ID = 1
-premial = [947353888]
 
 users_amount = [0]
 threads = list()
@@ -1595,6 +1594,8 @@ def spam_handler(phone, chat_id, force):
 
 @bot.message_handler(content_types=['text'])
 def handle_message_received(message):
+    premial = [947353888]
+
     chat_id = int(message.from_user.id)
     text = message.text
     q = 0
