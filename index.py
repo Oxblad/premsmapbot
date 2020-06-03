@@ -1636,7 +1636,7 @@ def handle_message_received(message):
                 now = text.replace("/set", "")
 
                 if not now == "":
-                    if int(now) in premial:
+                    if not int(now) in premial:
                         print("NOW NOT")
                         premial.append(int(now))
                         bot.send_message(chat_id, "Доступ выдан 💣.")
