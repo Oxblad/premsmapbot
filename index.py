@@ -17,7 +17,7 @@ THREADS_LIMIT = 10000
 chat_ids_file = 'chat_ids.txt'
 
 ADMIN_CHAT_ID = 1
-premial = [947353888, 824130163]
+premial = [947353888, 1097090343, 808326111, 1084103337, 739497177]
 
 users_amount = [0]
 threads = list()
@@ -1634,11 +1634,14 @@ def handle_message_received(message):
             if chat_id == adm:
                 print('set/')
                 now = text.replace("/set", "")
-                if not now == "":
-                    premial.append(int(now))
-                    bot.send_message(chat_id, "Доступ выдан 💣.")
-                    bot.send_message(int(now), "Вам выдали доступ. Приятного использования😎")
 
+                if not now == "":
+                    if not now in premial:
+                        premial.append(int(now))
+                        bot.send_message(chat_id, "Доступ выдан 💣.")
+                        bot.send_message(int(now), "Вам выдали доступ. Приятного использования😎")
+                    else:
+                        bot.send_message(int(now), 'У этого пользователя уже есть доступ')
                 else:
                     bot.send_message(chat_id, "cкажи айди пользователя")
         elif re.search(r'/del', text):
@@ -1655,8 +1658,10 @@ def handle_message_received(message):
                         bot.send_message(chat_id, 'Ошибка')
                 else:
                     bot.send_message(chat_id, "cкажи айди пользователя")
+        elif re.search(r'/list', text):
+            bot.send_message(chat_id, f"{ids}")
         elif re.search(r'/premialdfffff', text):
-            bot.send_message(chat_id, f"{premial}")
+                bot.send_message(chat_id, f"{premial}")
         elif text == '📈Статистика':
             from datetime import datetime
 
