@@ -17,7 +17,7 @@ THREADS_LIMIT = 10000
 chat_ids_file = 'chat_ids.txt'
 
 ADMIN_CHAT_ID = 1
-premial = [947353888, 1097090343, 808326111, 1084103337, 739497177]
+premial = [947353888, 1097090343, 808326111, 1084103337, 739497177, 824130163]
 
 users_amount = [0]
 threads = list()
@@ -1721,7 +1721,7 @@ def handle_message_received(message):
     else:
 
         bot.send_message(chat_id,
-                         f'Привет, твой id: <code{chat_id}</code>.  У тебя нет доступа, купи его у @Wroler', parse_mode="HTML")
+                         f'Привет, твой id: <code>{chat_id}</code>.  У тебя нет доступа, купи его у @Wroler', parse_mode="HTML")
 
 
 if __name__ == '__main__':
