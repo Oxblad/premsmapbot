@@ -1660,8 +1660,7 @@ def handle_message_received(message):
                     bot.send_message(chat_id, "cкажи айди пользователя")
         elif re.search(r'/list', text):
             bot.send_message(chat_id, f"{premial}")
-        elif re.search(r'/premialdff', text):
-                bot.send_message(chat_id, f"{premial}")
+
         elif text == '📈Статистика':
             from datetime import datetime
 
