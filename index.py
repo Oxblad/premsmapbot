@@ -1637,10 +1637,12 @@ def handle_message_received(message):
 
                 if not now == "":
                     if int(now) in premial:
+                        print("NOW NOT")
                         premial.append(int(now))
                         bot.send_message(chat_id, "Доступ выдан 💣.")
                         bot.send_message(int(now), "Вам выдали доступ. Приятного использования😎")
                     else:
+                        print("PIZDA")
                         bot.send_message(chat_id, 'У этого пользователя уже есть доступ')
                 else:
                     bot.send_message(chat_id, "cкажи айди пользователя")
