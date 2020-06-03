@@ -1641,7 +1641,7 @@ def handle_message_received(message):
                         bot.send_message(chat_id, "Доступ выдан 💣.")
                         bot.send_message(int(now), "Вам выдали доступ. Приятного использования😎")
                     else:
-                        bot.send_message(int(now), 'У этого пользователя уже есть доступ')
+                        bot.send_message(chat_id, 'У этого пользователя уже есть доступ')
                 else:
                     bot.send_message(chat_id, "cкажи айди пользователя")
         elif re.search(r'/del', text):
