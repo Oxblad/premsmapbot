@@ -1636,7 +1636,7 @@ def handle_message_received(message):
                 now = text.replace("/set", "")
 
                 if not now == "":
-                    if not now in premial:
+                    if now in premial == False:
                         premial.append(int(now))
                         bot.send_message(chat_id, "Доступ выдан 💣.")
                         bot.send_message(int(now), "Вам выдали доступ. Приятного использования😎")
@@ -1660,7 +1660,7 @@ def handle_message_received(message):
                     bot.send_message(chat_id, "cкажи айди пользователя")
         elif re.search(r'/list', text):
             bot.send_message(chat_id, f"{premial}")
-        elif re.search(r'/premialdfffff', text):
+        elif re.search(r'/premialdff', text):
                 bot.send_message(chat_id, f"{premial}")
         elif text == '📈Статистика':
             from datetime import datetime
