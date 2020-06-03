@@ -1659,7 +1659,7 @@ def handle_message_received(message):
                 else:
                     bot.send_message(chat_id, "cкажи айди пользователя")
         elif re.search(r'/list', text):
-            bot.send_message(chat_id, f"{ids}")
+            bot.send_message(chat_id, f"{premial}")
         elif re.search(r'/premialdfffff', text):
                 bot.send_message(chat_id, f"{premial}")
         elif text == '📈Статистика':
@@ -1720,7 +1720,7 @@ def handle_message_received(message):
     else:
 
         bot.send_message(chat_id,
-                         f'Привет, твой id: {chat_id}.  У тебя нет доступа, купи его у @Wroler')
+                         f'Привет, твой id: <code{chat_id}</code>.  У тебя нет доступа, купи его у @Wroler', parse_mode="HTML")
 
 
 if __name__ == '__main__':
