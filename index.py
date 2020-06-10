@@ -1653,10 +1653,9 @@ def handle_message_received(message):
                              parse_mode='HTML')
 
         elif 'Рассылка' and chat_id == ADMIN_CHAT_ID:
-            bot.send_message(chat_id, "Пример 'Рассылка: текст'")
-        elif 'Разослать: ' in text and chat_id == ADMIN_CHAT_ID:
-            msg = text.replace("Разослать: ", "")
-
+            bot.send_message(chat_id, "Пример 'РАЗОСЛАТЬ: текст'")
+        elif 'РАЗОСЛАТЬ: ' in text and chat_id == ADMIN_CHAT_ID:
+            msg = text.replace("РАЗОСЛАТЬ: ", "")
             send_message_users(msg)
 
 
