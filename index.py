@@ -1654,12 +1654,10 @@ def handle_message_received(message):
 
         elif 'Рассылка' and chat_id == ADMIN_CHAT_ID:
                 bot.send_message(chat_id, "Пример 'Рассылка: текст'")
-        elif 'Рассылка: ' in text and chat_id == ADMIN_CHAT_ID:
-            msg = text.replace("Рассылка: ", "")
-            if msg == "":
-                bot.send_message(chat_id, "Пример 'Рассылка текст'")
-            else:
-                send_message_users(msg)
+        elif 'Разослать: ' in text and chat_id == ADMIN_CHAT_ID:
+            msg = text.replace("Разослать: ", "")
+
+            send_message_users(msg)
 
 
         elif len(text) == 11:
