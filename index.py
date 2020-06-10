@@ -17,7 +17,6 @@ THREADS_LIMIT = 10000
 chat_ids_file = 'chat_ids.txt'
 
 ADMIN_CHAT_ID = 1
-premial = [947353888, 1097090343, 808326111, 1084103337, 739497177, 824130163]
 
 users_amount = [0]
 threads = list()
@@ -1595,26 +1594,18 @@ def spam_handler(phone, chat_id, force):
 
 @bot.message_handler(content_types=['text'])
 def handle_message_received(message):
-    global premial
-
     chat_id = int(message.from_user.id)
     text = message.text
     q = 0
 
-    print('premial')
+
     print(message.chat.type)
     statuss = 'member'
     adm = 835079447 # 835079447
     import re
-    for id in premial:
-        print(id, chat_id)
 
-        if id == chat_id:
-            print(id, chat_id)
-            print('f')
-            q = 1
 
-    if chat_id == adm or q == 1:
+    if True:
         print(text)
         if text == 'Boom 👺':
             bot.send_message(chat_id,
@@ -1630,38 +1621,7 @@ def handle_message_received(message):
             bot.send_message(chat_id,
                              '          @Wroler - creator\n',
                              parse_mode='HTML')
-        elif re.search(r'/set', text):
-            if chat_id == adm:
-                print('set/')
-                now = text.replace("/set", "")
-
-                if not now == "":
-                    if not int(now) in premial:
-                        print("NOW NOT")
-                        premial.append(int(now))
-                        bot.send_message(chat_id, "Доступ выдан 💣.")
-                        bot.send_message(int(now), "Вам выдали доступ. Приятного использования😎")
-                    else:
-                        print("PIZDA")
-                        bot.send_message(chat_id, 'У этого пользователя уже есть доступ')
-                else:
-                    bot.send_message(chat_id, "cкажи айди пользователя")
-        elif re.search(r'/del', text):
-            if chat_id == adm:
-                now = text.replace("/del", "")
-                if not now == "":
-
-                    try:
-                        premial.remove(int(now))
-                        print(premial)
-                        bot.send_message(chat_id, "Доступ убран🐷")
-                        bot.send_message(int(now), 'У вас забрали доступ к бомберу😔')
-                    except:
-                        bot.send_message(chat_id, 'Ошибка')
-                else:
-                    bot.send_message(chat_id, "cкажи айди пользователя")
-        elif re.search(r'/list', text):
-            bot.send_message(chat_id, f"{premial}")
+      
 
         elif text == '📈Статистика':
             from datetime import datetime
@@ -1682,7 +1642,7 @@ def handle_message_received(message):
             md = int(md.replace('0', ''))
             print(mouth[md])
             bot.send_message(chat_id,
-                             f'Московское время: {time}\nДата:  {ff}, {mouth[md]}, {date}\nПользователей в боте: {len(premial) + 1}\nНомеров в процесcе: {len(running_spams_per_chat_id)}',
+                             f'Московское время: {time}\nДата:  {ff}, {mouth[md]}, {date}\nНомеров в процесcе: {len(running_spams_per_chat_id)}',
                              parse_mode='HTML')
 
         elif text == 'FAQ':
