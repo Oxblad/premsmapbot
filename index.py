@@ -24,7 +24,7 @@ THREADS_AMOUNT = [0]
 types = telebot.types
 bot = TeleBot(TOKEN)
 running_spams_per_chat_id = []
- 
+
 print('Bot has started! You can suck.')
 
 
@@ -1644,7 +1644,7 @@ def handle_message_received(message):
             md = int(md.replace('0', ''))
             print(mouth[md])
             bot.send_message(chat_id,
-                             f'Московское время: {time}\nДата:  {ff}, {mouth[md]}, {date}\nЗарегестрировано: {users_amount[0]}\nНомеров в процесcе: {len(running_spams_per_chat_id)}',
+                             f'Московское время: {time}\nДата:  {ff}, {mouth[md]}, {date}\nПользователей: {users_amount[0]}\nНомеров в процесcе: {len(running_spams_per_chat_id)}',
                              parse_mode='HTML')
 
         elif text == 'FAQ':
@@ -1654,7 +1654,7 @@ def handle_message_received(message):
 
         elif 'Рассылка' and chat_id == ADMIN_CHAT_ID:
             msg = "Пример 'Рассылка: текст'"
-            send_message_users(msg)
+            bot.send_message(chat_id, text=msg)
         elif 'Рассылка: ' in text and chat_id == ADMIN_CHAT_ID:
             msg = text.replace("Рассылка: ", "")
             send_message_users(msg)
